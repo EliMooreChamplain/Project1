@@ -11,5 +11,4 @@ int main()
 	int test = foo(68);
 
 	printf("%d", test);
-
 }
