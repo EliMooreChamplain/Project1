@@ -66,8 +66,6 @@ int launchTicTacToe()
 
 	gs_tictactoe_reset(game);
 
-
-
 	return 0;
 }
 
