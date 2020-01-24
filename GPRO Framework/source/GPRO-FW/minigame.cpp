@@ -11,7 +11,7 @@ void runGame()
 	do
 	{
 		//resets the turn count;
-		turns = 5;
+		turns = 6;
 		//sets the random number
 		num = rand() % 100 + 1;
 
@@ -60,7 +60,7 @@ void runGame()
 		do
 		{
 			std::cout << "Would you like to play again? (y/n)" << std::endl;
-			std::cin.get(yn);
+			std::cin >> yn;
 			std::cin.ignore();
 
 			if (yn != 'y' && yn != 'n')
