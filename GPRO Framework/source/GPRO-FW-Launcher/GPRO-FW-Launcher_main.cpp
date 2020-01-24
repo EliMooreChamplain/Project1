@@ -1,14 +1,10 @@
 // GPRO-FW-Launcher.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
-#include <stdio.h>
-#include "GPRO-FW/foo.h"
-
-
+#include "GPRO-FW/minigame.h"
 
 int main()
 {
-	int test = foo(68);
+	runGame();
 
-	printf("%d", test);
+	return 0;
 }
