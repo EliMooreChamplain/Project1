@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <stdbool.h>
 
 
 //-----------------------------------------------------------------------------
@@ -64,6 +65,138 @@ inline gs_checkers_index gs_checkers_reset(gs_checkers game)
 	return total;
 }
 
+void showBoard(gs_checkers game)
+{
+	system("CLS");
+	printf("  ");
+	for (int i = 1; i < GS_CHECKERS_BOARD_WIDTH + 1; i++)
+	{
+		printf("%i", i);
+		printf(" ");
+	}
+	printf("\n");
+	for (int i = 0; i < GS_CHECKERS_BOARD_HEIGHT; i++)
+	{
+		printf("%i", i + 1);
+		printf(" ");
+		for (int j = 0; j < GS_CHECKERS_BOARD_WIDTH; j++)
+		{
+			if(game[j][i] == gs_checkers_space_open)
+			{
+				printf("# ");
+			}
+			else if(game[j][i] == gs_checkers_space_black)
+			{
+				printf("x ");
+			}
+			else if(game[j][i] == gs_checkers_space_white)
+			{
+				printf("o ");
+			}
+			
+		}
+		printf("\n");
+	}
+}
+
+void movePieces(gs_checkers game)
+{
+	int prevPosX, xCoord, yCoord, prevPosY, newPosX, newPosY;
+	bool isValid;
+	do
+	{
+		do
+		{
+			isValid = true;
+			printf("Piece: \n");
+			printf("Enter an x coordinate: ");
+			
+			scanf("%i", &xCoord);
+			printf("\nEnter a y coordinate: ");
+			
+			scanf("%i", &yCoord);
+
+			prevPosX = xCoord - 1;
+			prevPosY = yCoord - 1;
+			if (game[prevPosX][prevPosY] == gs_checkers_space_open)
+			{
+				isValid = false;
+				printf("That space is empty\n");
+			}
+			if (game[prevPosX,prevPosY] == gs_checkers_space_white)
+			{
+				printf("That is the enemy's piece\n");
+			}
+
+		} while (!isValid);
+
+		printf("To: \n");
+		printf("Enter an x coordinate: ");
+		scanf("%i", &xCoord);
+		printf("\nEnter a y coordinate: ");
+		scanf("%i", &yCoord);
+
+		newPosX = xCoord - 1;
+		newPosY = yCoord - 1;
+		if (!(prevPosX == newPosX && prevPosY == newPosY))//If its not the same position
+		{
+			if (abs(newPosY - prevPosY) == abs(newPosX - prevPosX))//If the player is moving diagonally
+			{
+				if (newPosX - prevPosX > 0)//If the player is moving forward
+				{
+					if (game[newPosX][newPosY] == gs_checkers_space_open)//If the player is not going into an occupied space
+					{
+						if (abs(newPosX - prevPosX) == 1 && abs(newPosY - prevPosY) == 1)//if the player is only moving one space
+						{
+							isValid = true;//*****************************************TOP LEVEL MOVING
+						}
+						else
+						{
+							if (
+								game[newPosX - ((newPosY - prevPosY) / (newPosX - prevPosX))][newPosY - ((newPosY - prevPosY) / (newPosX - prevPosX))] == gs_checkers_space_white &&
+								newPosX - (2 * (newPosY - prevPosY) / (newPosX - prevPosX)) == prevPosX &&
+								newPosY - (2 * (newPosY - prevPosY) / (newPosX - prevPosX)) == prevPosY
+								)//If the player is jumping correctly
+							{
+								isValid = true;//*****************************************TOP LEVEL JUMPING
+								game[newPosX - ((newPosY - prevPosY) / (newPosX - prevPosX))][newPosY - ((newPosY - prevPosY) / (newPosX - prevPosX))] = gs_checkers_space_open;
+							}
+							else
+							{
+								printf("You can only move one space\n");
+								isValid = false;
+							}
+						}
+					}
+					else
+					{
+
+						printf("Can't move into an occupied space\n");
+						isValid = false;
+					}
+				}
+				else
+				{
+					printf("You need to move forward\n");
+					isValid = false;
+				}
+			}
+			else
+			{
+				printf("You need to move diagonally\n");
+				isValid = false;
+			}
+		}
+		else
+		{
+			printf("That's the same position you started in\n");
+			isValid = false;
+		}
+	} while (!isValid);
+	game[newPosX][newPosY] = game[prevPosX][prevPosY];//Move to space
+	game[prevPosX][prevPosY] = gs_checkers_space_open;
+}
+
 
 //-----------------------------------------------------------------------------
 // DEFINITIONS
@@ -74,7 +207,12 @@ int launchCheckers()
 
 	gs_checkers_reset(game);
 
-
+	while (true)
+	{
+		showBoard(game);
+		movePieces(game);
+	}
+	
 
 	return 0;
 }

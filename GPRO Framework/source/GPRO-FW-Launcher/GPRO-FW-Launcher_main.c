@@ -2,8 +2,10 @@
 //
 
 int launchTicTacToe();
+int launchCheckers();
 
 int main()
 {
-	launchTicTacToe();
+	launchCheckers();
+	//launchTicTacToe();
 }
