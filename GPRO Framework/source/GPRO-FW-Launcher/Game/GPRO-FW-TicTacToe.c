@@ -58,9 +58,9 @@ inline gs_tictactoe_index gs_tictactoe_reset(gs_tictactoe game)
 
 void displayBoard(gs_tictactoe game)
 {
-	system("clear");
+	system("CLS");
 
-	printf("  1  2  3 \n");
+	printf("  1  2  3  X\n");
 
 	gs_tictactoe_index xpos, ypos;
 	for (ypos = 0; ypos < GS_TICTACTOE_BOARD_HEIGHT; ++ypos)
@@ -68,30 +68,74 @@ void displayBoard(gs_tictactoe game)
 		printf("%i", ypos + 1);
 		for (xpos = 0; xpos < GS_TICTACTOE_BOARD_WIDTH; ++xpos)
 		{
-			if(gs_tictactoe_getSpaceState(game, xpos, ypos) == gs_tictactoe_space_x)
-			{ printf(" X "); }
-			if(gs_tictactoe_getSpaceState(game, xpos, ypos) == gs_tictactoe_space_o)
-			{ printf(" O "); }
-			if(gs_tictactoe_getSpaceState(game, xpos, ypos) == gs_tictactoe_space_open)
-			{ printf(" _ "); }
+			if (gs_tictactoe_getSpaceState(game, xpos, ypos) == gs_tictactoe_space_x)
+			{
+				printf(" X ");
+			}
+			if (gs_tictactoe_getSpaceState(game, xpos, ypos) == gs_tictactoe_space_o)
+			{
+				printf(" O ");
+			}
+			if (gs_tictactoe_getSpaceState(game, xpos, ypos) == gs_tictactoe_space_open)
+			{
+				printf(" _ ");
+			}
 		}
 		printf("\n");
 	}
+	printf("Y\n");
 }
 
-void getInput()
+void getInput(gs_tictactoe game, char turn)
 {
-	printf("Enter an x coordinate: ");
-	int xCoord;
-	scanf("%i",&xCoord);
-	printf("\nEnter a y coordinate: ");
-	int yCoord;
-	scanf("%i", &yCoord);
+	int allowed = 0, xCoord, yCoord;
+	do
+	{
+		do
+		{
+			printf("Enter an x coordinate: ");
+			scanf("%i", &xCoord);
 
-	printf("%i", xCoord);
-	printf("%i", yCoord);
+			if (xCoord > 3 || xCoord < 1)
+			{
+				printf("Please input a value 1-3\n");
+			}
+		} while (xCoord > 3 || xCoord < 1);
 
+		do
+		{
+			printf("\nEnter a y coordinate: ");
+			scanf("%i", &yCoord);
 
+			if (yCoord > 3 || yCoord < 1)
+			{
+				printf("Please input a value 1-3\n");
+			}
+		} while (yCoord > 3 || xCoord < 1);
+
+		if (gs_tictactoe_getSpaceState(game, xCoord - 1, yCoord - 1) != gs_tictactoe_space_open)
+		{
+			printf("That space is already full\n");
+		}
+		else
+		{
+			if (turn == 'x')
+			{
+				gs_tictactoe_setSpaceState(game, gs_tictactoe_space_x, xCoord - 1, yCoord - 1);
+			}
+			else
+			{
+				gs_tictactoe_setSpaceState(game, gs_tictactoe_space_o, xCoord - 1, yCoord - 1);
+			}
+			allowed = 1;
+		}
+	} while (allowed == 0);
+}
+
+int checkWin(game)
+{
+	gs_tictactoe_index xpos, ypos;
+	return 0;
 }
 
 
@@ -105,9 +149,36 @@ int launchTicTacToe()
 	gs_tictactoe_reset(game);
 
 	displayBoard(game);
-	getInput();
-	//gs_tictactoe_setSpaceState(game, gs_tictactoe_space_x, 1, 2);
-	//displayBoard(game);
+
+	int turn = 1, win = 0;
+	char player;
+
+
+	while (turn < 10 && win == 0)
+	{
+		if (turn % 2 == 0)
+		{
+			player = 'o';
+			printf("O's turn\n");
+		}
+		else
+		{
+			player = 'x';
+			printf("X's turn\n");
+		}
+
+		getInput(game, player);
+		displayBoard(game);
+
+		if (turn > 4)
+		{
+			win = checkWin(game);
+		}
+
+		++turn;
+	}
+
+	printf("Congratulations, you won!\n");
 
 	return 0;
 }
