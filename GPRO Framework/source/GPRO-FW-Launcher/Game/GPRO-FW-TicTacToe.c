@@ -134,7 +134,38 @@ void getInput(gs_tictactoe game, char turn)
 
 int checkWin(game)
 {
-	gs_tictactoe_index xpos, ypos;
+	if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 0, 1) && gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 0, 2))
+	{
+		return 1;
+	}
+	if (gs_tictactoe_getSpaceState(game, 1, 0) == gs_tictactoe_getSpaceState(game, 1, 1) && gs_tictactoe_getSpaceState(game, 1, 0) == gs_tictactoe_getSpaceState(game, 1, 2))
+	{
+		return 1;
+	}
+	if (gs_tictactoe_getSpaceState(game, 2, 0) == gs_tictactoe_getSpaceState(game, 2, 1) && gs_tictactoe_getSpaceState(game, 2, 0) == gs_tictactoe_getSpaceState(game, 2, 2))
+	{
+		return 1;
+	}
+	if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 1, 0) && gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 2, 0))
+	{
+		return 1;
+	}
+	if (gs_tictactoe_getSpaceState(game, 0, 1) == gs_tictactoe_getSpaceState(game, 1, 1) && gs_tictactoe_getSpaceState(game, 0, 1) == gs_tictactoe_getSpaceState(game, 2, 1))
+	{
+		return 1;
+	}
+	if (gs_tictactoe_getSpaceState(game, 0, 2) == gs_tictactoe_getSpaceState(game, 1, 2) && gs_tictactoe_getSpaceState(game, 0, 2) == gs_tictactoe_getSpaceState(game, 2, 2))
+	{
+		return 1;
+	}
+	if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 0, 1) && gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 0, 2))
+	{
+		return 1;
+	}
+	if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 0, 1) && gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 0, 2))
+	{
+		return 1;
+	}
 	return 0;
 }
 
