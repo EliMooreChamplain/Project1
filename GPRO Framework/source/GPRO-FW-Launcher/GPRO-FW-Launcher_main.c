@@ -6,6 +6,7 @@ int launchCheckers();
 
 int main()
 {
+<<<<<<< HEAD
 	char game;
 	do
 	{
@@ -22,4 +23,8 @@ int main()
 	{
 		launchCheckers();
 	}
+=======
+	launchCheckers();
+	//launchTicTacToe();
+>>>>>>> 73bea08b7b020f97b2d7c3fc05636457e296b8da
 }
