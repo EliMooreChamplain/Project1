@@ -132,39 +132,48 @@ void getInput(gs_tictactoe game, char turn)
 	} while (allowed == 0);
 }
 
-int checkWin(game)
+int checkWin(gs_tictactoe game)
 {
-	if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 0, 1) && gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 0, 2))
+	if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_space_o || gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_space_x)
 	{
-		return 1;
+		if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 0, 1) && gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 0, 2))
+		{
+			return 1;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 1, 0) && gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 2, 0))
+		{
+			return 1;
+		}
 	}
-	if (gs_tictactoe_getSpaceState(game, 1, 0) == gs_tictactoe_getSpaceState(game, 1, 1) && gs_tictactoe_getSpaceState(game, 1, 0) == gs_tictactoe_getSpaceState(game, 1, 2))
+	if (gs_tictactoe_getSpaceState(game, 1, 1) == gs_tictactoe_space_o || gs_tictactoe_getSpaceState(game, 1, 1) == gs_tictactoe_space_x)
 	{
-		return 1;
+		if (gs_tictactoe_getSpaceState(game, 1, 0) == gs_tictactoe_getSpaceState(game, 1, 1) && gs_tictactoe_getSpaceState(game, 1, 0) == gs_tictactoe_getSpaceState(game, 1, 2))
+		{
+			return 1;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 0, 1) == gs_tictactoe_getSpaceState(game, 1, 1) && gs_tictactoe_getSpaceState(game, 0, 1) == gs_tictactoe_getSpaceState(game, 2, 1))
+		{
+			return 1;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 1, 1) && gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 2, 2))
+		{
+			return 1;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 2, 0) == gs_tictactoe_getSpaceState(game, 1, 1) && gs_tictactoe_getSpaceState(game, 2, 0) == gs_tictactoe_getSpaceState(game, 0, 2))
+		{
+			return 1;
+		}
 	}
-	if (gs_tictactoe_getSpaceState(game, 2, 0) == gs_tictactoe_getSpaceState(game, 2, 1) && gs_tictactoe_getSpaceState(game, 2, 0) == gs_tictactoe_getSpaceState(game, 2, 2))
+	if (gs_tictactoe_getSpaceState(game, 2, 2) == gs_tictactoe_space_o || gs_tictactoe_getSpaceState(game, 2, 2) == gs_tictactoe_space_x)
 	{
-		return 1;
-	}
-	if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 1, 0) && gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 2, 0))
-	{
-		return 1;
-	}
-	if (gs_tictactoe_getSpaceState(game, 0, 1) == gs_tictactoe_getSpaceState(game, 1, 1) && gs_tictactoe_getSpaceState(game, 0, 1) == gs_tictactoe_getSpaceState(game, 2, 1))
-	{
-		return 1;
-	}
-	if (gs_tictactoe_getSpaceState(game, 0, 2) == gs_tictactoe_getSpaceState(game, 1, 2) && gs_tictactoe_getSpaceState(game, 0, 2) == gs_tictactoe_getSpaceState(game, 2, 2))
-	{
-		return 1;
-	}
-	if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 0, 1) && gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 0, 2))
-	{
-		return 1;
-	}
-	if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 0, 1) && gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_getSpaceState(game, 0, 2))
-	{
-		return 1;
+		if (gs_tictactoe_getSpaceState(game, 0, 2) == gs_tictactoe_getSpaceState(game, 1, 2) && gs_tictactoe_getSpaceState(game, 0, 2) == gs_tictactoe_getSpaceState(game, 2, 2))
+		{
+			return 1;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 2, 0) == gs_tictactoe_getSpaceState(game, 2, 1) && gs_tictactoe_getSpaceState(game, 2, 0) == gs_tictactoe_getSpaceState(game, 2, 2))
+		{
+			return 1;
+		}
 	}
 	return 0;
 }
@@ -175,14 +184,14 @@ int checkWin(game)
 
 int launchTicTacToe()
 {
+	int i = 0;
 	gs_tictactoe game = { 0 };
-
 	gs_tictactoe_reset(game);
 
 	displayBoard(game);
 
 	int turn = 1, win = 0;
-	char player;
+	char player = 'x';
 
 
 	while (turn < 10 && win == 0)

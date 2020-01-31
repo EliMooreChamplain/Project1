@@ -6,6 +6,19 @@ int launchCheckers();
 
 int main()
 {
-	launchTicTacToe();
-	launchCheckers();
+	int choice = 0;
+	do
+	{
+		printf("Press 1 for Tic-Tac-Toe or 2 for Checkers: ");
+		scanf("%i", &choice);
+	} while (choice != 1 && choice != 2);
+
+	if (choice == 1)
+	{
+		launchTicTacToe();
+	}
+	else
+	{
+		launchCheckers();
+	}
 }
