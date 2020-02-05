@@ -2,13 +2,26 @@
 //
 
 #include <stdio.h>
-#include "GPRO-FW/foo.h"
 
 
+int launchTicTacToe();
+int launchCheckers();
 
 int main()
 {
-	int test = foo(68);
+	int choice = 0;
+	do
+	{
+		printf("Press 1 for Tic-Tac-Toe or 2 for Checkers: ");
+		scanf("%i", &choice);
+	} while (choice != 1 && choice != 2);
 
-	printf("%d", test);
+	if (choice == 1)
+	{
+		launchTicTacToe();
+	}
+	else
+	{
+		launchCheckers();
+	}
 }
