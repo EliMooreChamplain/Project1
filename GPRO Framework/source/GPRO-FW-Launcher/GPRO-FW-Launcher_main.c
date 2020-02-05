@@ -1,9 +1,7 @@
 // GPRO-FW-Launcher.cpp : This file contains the 'main' function. Program execution begins and ends there.
-<<<<<<< HEAD:GPRO Framework/source/GPRO-FW-Launcher/GPRO-FW-Launcher_main.c
 //
 
 #include <stdio.h>
-
 
 int launchTicTacToe();
 int launchCheckers();
@@ -26,14 +24,3 @@ int main()
 		launchCheckers();
 	}
 }
-=======
-
-#include "GPRO-FW/minigame.h"
-
-int main()
-{
-	runGame();
-
-	return 0;
-}
->>>>>>> bae46f3514ab7ee124bb40772a1574e47ed23541:GPRO Framework/source/GPRO-FW-Launcher/GPRO-FW-Launcher_main.cpp
